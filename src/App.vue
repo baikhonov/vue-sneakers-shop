@@ -1,10 +1,14 @@
 <script setup>
-import PageHeader from './components/PageHeader.vue'
+import PageHeader from '@/components/PageHeader.vue'
+import ProductsList from '@/components/ProductsList.vue'
 </script>
 
 <template>
-  <div class="w-4/5 h-screen mx-auto mt-14 bg-white rounded-xl shadow-xl">
+  <div class="w-4/5 max-w-[1080px] mx-auto my-14 bg-white rounded-xl shadow-xl">
     <PageHeader />
-    <h1>Samrat is a cool web developer</h1>
+    <div class="p-10">
+      <h2 class="mb-8 text-3xl font-bold">Все кроссовки</h2>
+      <ProductsList />
+    </div>
   </div>
 </template>
