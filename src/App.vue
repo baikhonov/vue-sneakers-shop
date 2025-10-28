@@ -1,9 +1,11 @@
 <script setup>
 import PageHeader from '@/components/PageHeader.vue'
 import ProductsList from '@/components/ProductsList.vue'
+import PageCart from '@/components/PageCart.vue'
 </script>
 
 <template>
+  <PageCart />
   <div class="w-4/5 max-w-[1080px] mx-auto my-14 bg-white rounded-xl shadow-xl">
     <PageHeader />
     <div class="p-10">
