@@ -8,8 +8,8 @@ import ProductCard from '@/components/ProductCard.vue'
       title="Мужские Кроссовки Nike Blazer Mid Suede"
       imageUrl="/sneakers/sneakers-1.jpg"
       price="12 999"
-      :isFavorite="true"
-      :isAdded="true"
+      :isFavorite="false"
+      :isAdded="false"
     />
   </div>
 </template>
