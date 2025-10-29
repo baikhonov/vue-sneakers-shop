@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import PageHeader from '@/components/PageHeader.vue'
 import ProductsList from '@/components/ProductsList.vue'
@@ -8,9 +8,27 @@ import axios from 'axios'
 
 const items = ref([])
 
+const sortOption = ref('')
+const searchQuery = ref('')
+
+function onChangeSelect(event) {
+  sortOption.value = event.target.value
+}
+
 onMounted(async () => {
   try {
     const { data } = await axios.get('https://06a1b11184619e5d.mokky.dev/items')
+    items.value = data
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+watch(sortOption, async () => {
+  try {
+    const { data } = await axios.get(
+      'https://06a1b11184619e5d.mokky.dev/items?sortBy=' + sortOption.value,
+    )
     items.value = data
   } catch (err) {
     console.log(err)
@@ -27,11 +45,12 @@ onMounted(async () => {
         <h2 class="mr-auto text-3xl font-bold">Все кроссовки</h2>
         <div class="flex gap-4">
           <select
+            @change="onChangeSelect"
             class="h-[45px] p-2 border border-gray-100 rounded-lg outline-none hover:border-gray-300 focus:border-gray-400 transition"
           >
-            <option value="">По названию</option>
-            <option value="">По цене (по возрастанию)</option>
-            <option value="">По цене (по убыванию)</option>
+            <option value="title">По названию</option>
+            <option value="price">По цене (по возрастанию)</option>
+            <option value="-price">По цене (по убыванию)</option>
           </select>
 
           <div class="relative">
