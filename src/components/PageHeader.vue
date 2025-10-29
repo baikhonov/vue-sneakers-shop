@@ -9,7 +9,7 @@
         <p class="text-sm text-gray-400">Магазин лучших кроссовок</p>
       </div>
     </div>
-    <ul class="flex max-sm:justify-between gap-8 max-sm:gap-2 max-sm:w-full">
+    <ul class="flex gap-8 max-md:gap-6 max-sm:gap-4 max-sm:w-full">
       <li class="flex items-center gap-2 text-gray-600 hover:text-black cursor-pointer">
         <img src="/cart.svg" alt="Корзина" />
         <span class="font-semibold">1205 ₽.</span>
