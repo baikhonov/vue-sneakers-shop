@@ -4,9 +4,6 @@ import CartItem from '@/components/CartItem.vue'
 
 <template>
   <div class="flex flex-col gap-5 grow">
-    <CartItem />
-    <CartItem />
-    <CartItem />
-    <CartItem />
+    <!-- <CartItem /> -->
   </div>
 </template>

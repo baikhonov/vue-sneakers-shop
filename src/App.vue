@@ -1,7 +1,21 @@
 <script setup>
+import { onMounted, ref } from 'vue'
+
 import PageHeader from '@/components/PageHeader.vue'
 import ProductsList from '@/components/ProductsList.vue'
 import PageCart from '@/components/PageCart.vue'
+import axios from 'axios'
+
+const items = ref([])
+
+onMounted(async () => {
+  try {
+    const { data } = await axios.get('https://06a1b11184619e5d.mokky.dev/items')
+    items.value = data
+  } catch (err) {
+    console.log(err)
+  }
+})
 </script>
 
 <template>
@@ -30,7 +44,7 @@ import PageCart from '@/components/PageCart.vue'
           </div>
         </div>
       </div>
-      <ProductsList />
+      <ProductsList :items="items" />
     </div>
   </div>
 </template>

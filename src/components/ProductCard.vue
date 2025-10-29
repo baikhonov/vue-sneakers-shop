@@ -22,7 +22,7 @@ defineProps({
     <div class="flex justify-between items-center">
       <div class="flex flex-col">
         <span class="text-gray-300 text-[11px]">Цена:</span>
-        <span class="font-bold">{{ price }} руб.</span>
+        <span class="font-bold">{{ price }} ₽</span>
       </div>
       <button @click="onClickAdd" class="cursor-pointer">
         <img :src="!isAdded ? '/plus.svg' : '/checked.svg'" alt="В закладки" />
