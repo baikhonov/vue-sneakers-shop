@@ -12,7 +12,7 @@ defineProps({
 
 <template>
   <div
-    class="relative pt-5 px-7 pb-7 border border-[#f3f3f3] rounded-3xl text-sm hover:shadow-lg hover:-translate-y-2 transition duration-300 bg-white"
+    class="relative pt-5 px-7 pb-7 border border-[#f3f3f3] rounded-3xl text-sm max-sm:text-base hover:shadow-lg hover:-translate-y-2 transition duration-300 bg-white"
   >
     <button @click="onClickFavorite" class="absolute left-8 top-8 cursor-pointer">
       <img :src="!isFavorite ? '/like-1.svg' : '/like-2.svg'" alt="Избранное" />

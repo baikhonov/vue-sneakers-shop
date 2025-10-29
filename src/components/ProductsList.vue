@@ -7,7 +7,9 @@ defineProps({
 </script>
 
 <template>
-  <div class="grid grid-cols-4 gap-10">
+  <div
+    class="grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-10 max-md:gap-5"
+  >
     <ProductCard
       v-for="item in items"
       :key="item.id"
