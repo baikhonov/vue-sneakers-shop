@@ -7,6 +7,7 @@ import PageCart from '@/components/PageCart.vue'
 import axios from 'axios'
 
 const items = ref([])
+const cartItems = ref([])
 
 const CartOpen = ref(false)
 
@@ -70,6 +71,25 @@ const addToFavorite = async (item) => {
   }
 }
 
+const addToCart = (item) => {
+  cartItems.value.push(item)
+  item.isAdded = true
+}
+
+const removeFromCart = (item) => {
+  cartItems.value.splice(cartItems.value.indexOf(item), 1)
+  item.isAdded = false
+}
+
+const onClickAddPlus = (item) => {
+  if (!item.isAdded) {
+    addToCart(item)
+  } else {
+    removeFromCart(item)
+  }
+  console.log(cartItems.value)
+}
+
 const fetchItems = async () => {
   try {
     const params = {
@@ -97,9 +117,12 @@ onMounted(async () => {
 })
 watch(filters, fetchItems)
 
-provide('cartActions', {
+provide('cart', {
+  cartItems,
   openCart,
   closeCart,
+  addToCart,
+  removeFromCart,
 })
 </script>
 
@@ -134,7 +157,7 @@ provide('cartActions', {
           </div>
         </div>
       </div>
-      <ProductsList :items="items" @add-to-favorite="addToFavorite" />
+      <ProductsList :items="items" @add-to-favorite="addToFavorite" @add-to-cart="onClickAddPlus" />
     </div>
   </div>
 </template>

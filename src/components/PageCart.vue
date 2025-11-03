@@ -3,7 +3,7 @@ import CartHeader from '@/components/CartHeader.vue'
 import CartList from '@/components/CartList.vue'
 import { inject } from 'vue'
 
-const { closeCart } = inject('cartActions')
+const { closeCart } = inject('cart')
 </script>
 
 <template>
