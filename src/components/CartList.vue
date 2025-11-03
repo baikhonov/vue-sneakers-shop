@@ -1,9 +1,9 @@
 <script setup>
-import CartItem from '@/components/CartItem.vue'
+import ProductCard from '@/components/ProductCard.vue'
 </script>
 
 <template>
   <div class="flex flex-col gap-5 grow">
-    <!-- <CartItem /> -->
+    <ProductCard />
   </div>
 </template>

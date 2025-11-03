@@ -8,6 +8,16 @@ import axios from 'axios'
 
 const items = ref([])
 
+const CartOpen = ref(false)
+
+const openCart = () => {
+  CartOpen.value = true
+}
+
+const closeCart = () => {
+  CartOpen.value = false
+}
+
 const filters = reactive({
   sortBy: 'title',
   searchQuery: '',
@@ -87,15 +97,19 @@ onMounted(async () => {
 })
 watch(filters, fetchItems)
 
-provide('addToFavorite', addToFavorite)
+provide('cartActions', {
+  openCart,
+  closeCart,
+})
 </script>
 
 <template>
-  <!-- <PageCart /> -->
+  <PageCart v-if="CartOpen" />
   <div
     class="w-4/5 max-md:w-auto max-w-[1080px] mx-auto my-14 max-md:m-3 bg-white rounded-xl shadow-xl"
   >
-    <PageHeader />
+    <PageHeader @open-cart="openCart" />
+
     <div class="p-10 max-sm:p-4">
       <div class="flex flex-wrap items-center gap-4 mb-8">
         <h2 class="mr-auto text-3xl max-lg:text-2xl font-bold">Все кроссовки</h2>
@@ -120,7 +134,7 @@ provide('addToFavorite', addToFavorite)
           </div>
         </div>
       </div>
-      <ProductsList :items="items" @addToFavorite="addToFavorite" />
+      <ProductsList :items="items" @add-to-favorite="addToFavorite" />
     </div>
   </div>
 </template>

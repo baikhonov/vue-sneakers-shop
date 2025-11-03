@@ -1,3 +1,7 @@
+<script setup>
+const emit = defineEmits(['openCart'])
+</script>
+
 <template>
   <header
     class="flex flex-wrap justify-between gap-5 px-10 py-8 max-sm:p-4 border-b border-b-[#eaeaea]"
@@ -10,7 +14,10 @@
       </div>
     </div>
     <ul class="flex gap-8 max-md:gap-6 max-sm:gap-4 max-sm:w-full">
-      <li class="flex items-center gap-2 text-gray-600 hover:text-black cursor-pointer">
+      <li
+        class="flex items-center gap-2 text-gray-600 hover:text-black cursor-pointer"
+        @click="() => emit('openCart')"
+      >
         <img src="/cart.svg" alt="Корзина" />
         <span class="font-semibold">1205 ₽.</span>
       </li>
