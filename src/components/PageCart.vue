@@ -4,6 +4,11 @@ import CartList from '@/components/CartList.vue'
 import { inject } from 'vue'
 
 const { closeCart } = inject('cart')
+
+defineProps({
+  totalPrice: Number,
+  vatPrice: Number,
+})
 </script>
 
 <template>
@@ -16,12 +21,12 @@ const { closeCart } = inject('cart')
       <div class="flex gap-2">
         <span>Итого:</span>
         <span class="flex-1 border-b border-dashed border-[#dfdfdf]"></span>
-        <span class="font-semibold">21 498 ₽</span>
+        <span class="font-semibold">{{ totalPrice }} ₽</span>
       </div>
       <div class="flex gap-2">
         <span>Налог 5%:</span>
         <span class="flex-1 border-b border-dashed border-[#dfdfdf]"></span>
-        <span class="font-semibold">1 074 ₽</span>
+        <span class="font-semibold">{{ vatPrice }} ₽</span>
       </div>
       <button
         disabled

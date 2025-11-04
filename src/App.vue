@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive, ref, watch, provide } from 'vue'
+import { onMounted, reactive, ref, watch, provide, computed } from 'vue'
 
 import PageHeader from '@/components/PageHeader.vue'
 import ProductsList from '@/components/ProductsList.vue'
@@ -11,6 +11,8 @@ const cartItems = ref([])
 
 const CartOpen = ref(false)
 
+const totalPrice = computed(() => cartItems.value.reduce((acc, item) => acc + item.price, 0))
+const vatPrice = computed(() => Math.round(totalPrice.value * 0.05))
 const openCart = () => {
   CartOpen.value = true
 }
@@ -127,11 +129,11 @@ provide('cart', {
 </script>
 
 <template>
-  <PageCart v-if="CartOpen" />
+  <PageCart v-if="CartOpen" :total-price="totalPrice" :vat-price="vatPrice" />
   <div
     class="w-4/5 max-md:w-auto max-w-[1080px] mx-auto my-14 max-md:m-3 bg-white rounded-xl shadow-xl"
   >
-    <PageHeader @open-cart="openCart" />
+    <PageHeader :total-price="totalPrice" @open-cart="openCart" />
 
     <div class="p-10 max-sm:p-4">
       <div class="flex flex-wrap items-center gap-4 mb-8">

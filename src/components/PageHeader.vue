@@ -1,4 +1,7 @@
 <script setup>
+defineProps({
+  totalPrice: Number,
+})
 const emit = defineEmits(['openCart'])
 </script>
 
@@ -19,7 +22,7 @@ const emit = defineEmits(['openCart'])
         @click="() => emit('openCart')"
       >
         <img src="/cart.svg" alt="Корзина" />
-        <span class="font-semibold">1205 ₽.</span>
+        <span class="font-semibold">{{ totalPrice }} ₽</span>
       </li>
       <li class="flex items-center gap-2 text-gray-600 hover:text-black cursor-pointer">
         <img src="/heart.svg" alt="Закладки" />
