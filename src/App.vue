@@ -8,11 +8,17 @@ import axios from 'axios'
 
 const items = ref([])
 const cartItems = ref([])
+const isCreatingOrder = ref(false)
 
 const CartOpen = ref(false)
 
 const totalPrice = computed(() => cartItems.value.reduce((acc, item) => acc + item.price, 0))
 const vatPrice = computed(() => Math.round(totalPrice.value * 0.05))
+
+const isCartEmpty = computed(() => cartItems.value.length === 0)
+
+const isCartButtonDisabled = computed(() => isCreatingOrder.value || isCartEmpty.value)
+
 const openCart = () => {
   CartOpen.value = true
 }
@@ -83,6 +89,26 @@ const removeFromCart = (item) => {
   item.isAdded = false
 }
 
+const createOrder = async () => {
+  try {
+    isCreatingOrder.value = true
+    const { data } = await axios.post('https://06a1b11184619e5d.mokky.dev/orders', {
+      items: cartItems.value,
+      totalPrice: totalPrice.value,
+    })
+
+    cartItems.value.forEach((item) => (item.isAdded = false))
+    cartItems.value = []
+    console.log(data)
+
+    return data
+  } catch (error) {
+    console.log(error)
+  } finally {
+    isCreatingOrder.value = false
+  }
+}
+
 const onClickAddPlus = (item) => {
   if (!item.isAdded) {
     addToCart(item)
@@ -129,7 +155,14 @@ provide('cart', {
 </script>
 
 <template>
-  <PageCart v-if="CartOpen" :total-price="totalPrice" :vat-price="vatPrice" />
+  <PageCart
+    v-if="CartOpen"
+    :total-price="totalPrice"
+    :vat-price="vatPrice"
+    :is-button-disabled="isCartButtonDisabled"
+    :is-creating-order="isCreatingOrder"
+    @create-order="createOrder"
+  />
   <div
     class="w-4/5 max-md:w-auto max-w-[1080px] mx-auto my-14 max-md:m-3 bg-white rounded-xl shadow-xl"
   >

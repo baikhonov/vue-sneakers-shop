@@ -1,13 +1,17 @@
 <script setup>
 import CartHeader from '@/components/CartHeader.vue'
 import CartList from '@/components/CartList.vue'
-import { inject } from 'vue'
+import { inject, computed } from 'vue'
 
 const { closeCart } = inject('cart')
+
+const emit = defineEmits(['createOrder'])
 
 defineProps({
   totalPrice: Number,
   vatPrice: Number,
+  isButtonDisabled: Boolean,
+  isCreatingOrder: Boolean,
 })
 </script>
 
@@ -29,10 +33,11 @@ defineProps({
         <span class="font-semibold">{{ vatPrice }} ₽</span>
       </div>
       <button
-        disabled
+        @click="emit('createOrder')"
+        :disabled="isButtonDisabled"
         class="w-full p-4 mt-4 bg-lime-500 text-white rounded-xl hover:bg-lime-600 active:bg-lime-700 transition disabled:bg-slate-400 cursor-pointer disabled:cursor-not-allowed"
       >
-        Оформить заказ
+        {{ isCreatingOrder ? 'Оформляем...' : 'Оформить заказ' }}
       </button>
     </div>
   </div>
