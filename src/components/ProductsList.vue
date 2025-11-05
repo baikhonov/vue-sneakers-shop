@@ -10,6 +10,7 @@ const emit = defineEmits(['addToFavorite', 'addToCart'])
 
 <template>
   <div
+    v-auto-animate
     class="grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-10 max-md:gap-5"
   >
     <ProductCard
