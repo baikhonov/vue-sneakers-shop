@@ -79,14 +79,24 @@ const addToFavorite = async (item) => {
   }
 }
 
+const updateItemsAddedState = () => {
+  items.value = items.value.map((item) => ({
+    ...item,
+    isAdded: cartItems.value.some((cartItem) => cartItem.id === item.id),
+  }))
+}
+
 const addToCart = (item) => {
   cartItems.value.push(item)
-  item.isAdded = true
+  updateItemsAddedState()
 }
 
 const removeFromCart = (item) => {
-  cartItems.value.splice(cartItems.value.indexOf(item), 1)
-  item.isAdded = false
+  const index = cartItems.value.findIndex((cartItem) => cartItem.id === item.id)
+  if (index !== -1) {
+    cartItems.value.splice(index, 1)
+  }
+  updateItemsAddedState()
 }
 
 const createOrder = async () => {
@@ -97,9 +107,8 @@ const createOrder = async () => {
       totalPrice: totalPrice.value,
     })
 
-    cartItems.value.forEach((item) => (item.isAdded = false))
     cartItems.value = []
-    console.log(data)
+    updateItemsAddedState()
 
     return data
   } catch (error) {
@@ -134,16 +143,30 @@ const fetchItems = async () => {
       favoriteId: null,
       isAdded: false,
     }))
+
+    updateItemsAddedState()
   } catch (err) {
     console.log(err)
   }
 }
 
 onMounted(async () => {
+  const localCart = localStorage.getItem('cartItems')
+  cartItems.value = localCart ? JSON.parse(localCart) : []
+
   await fetchItems()
   await fetchFavorites()
 })
+
 watch(filters, fetchItems)
+
+watch(
+  cartItems,
+  () => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems.value))
+  },
+  { deep: true },
+)
 
 provide('cart', {
   cartItems,
