@@ -1,6 +1,5 @@
 <script setup>
 import { ref, watch, provide, computed } from 'vue'
-import axios from 'axios'
 
 import PageHeader from '@/components/PageHeader.vue'
 import PageCart from '@/components/PageCart.vue'
@@ -8,16 +7,11 @@ import PageCart from '@/components/PageCart.vue'
 /* Корзина начало */
 const items = ref([])
 const cartItems = ref([])
-const isCreatingOrder = ref(false)
 
 const CartOpen = ref(false)
 
 const totalPrice = computed(() => cartItems.value.reduce((acc, item) => acc + item.price, 0))
 const vatPrice = computed(() => Math.round(totalPrice.value * 0.05))
-
-const isCartEmpty = computed(() => cartItems.value.length === 0)
-
-const isCartButtonDisabled = computed(() => isCreatingOrder.value || isCartEmpty.value)
 
 const openCart = () => {
   CartOpen.value = true
@@ -47,25 +41,6 @@ const removeFromCart = (item) => {
   updateItemsAddedState()
 }
 
-const createOrder = async () => {
-  try {
-    isCreatingOrder.value = true
-    const { data } = await axios.post('https://06a1b11184619e5d.mokky.dev/orders', {
-      items: cartItems.value,
-      totalPrice: totalPrice.value,
-    })
-
-    cartItems.value = []
-    updateItemsAddedState()
-
-    return data
-  } catch (error) {
-    console.log(error)
-  } finally {
-    isCreatingOrder.value = false
-  }
-}
-
 watch(
   cartItems,
   () => {
@@ -87,14 +62,7 @@ provide('cart', {
 </script>
 
 <template>
-  <PageCart
-    v-if="CartOpen"
-    :total-price="totalPrice"
-    :vat-price="vatPrice"
-    :is-button-disabled="isCartButtonDisabled"
-    :is-creating-order="isCreatingOrder"
-    @create-order="createOrder"
-  />
+  <PageCart v-if="CartOpen" :total-price="totalPrice" :vat-price="vatPrice" />
   <div
     class="w-4/5 max-md:w-auto max-w-[1080px] mx-auto my-14 max-md:m-3 bg-white rounded-xl shadow-xl"
   >
