@@ -4,7 +4,6 @@ import { ref, watch, provide, computed } from 'vue'
 import PageHeader from '@/components/PageHeader.vue'
 import PageCart from '@/components/PageCart.vue'
 
-/* Корзина начало */
 const items = ref([])
 const cartItems = ref([])
 
@@ -58,7 +57,6 @@ provide('cart', {
   addToCart,
   removeFromCart,
 })
-/* Корзина конец */
 </script>
 
 <template>
