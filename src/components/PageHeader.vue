@@ -14,7 +14,7 @@ const emit = defineEmits(['openCart'])
       <div class="flex items-center gap-x-4">
         <img class="w-10" src="/logo.png" alt="Logo" />
         <div>
-          <p class="font-bold text-xl uppercase">Vue Sneakers</p>
+          <p class="font-bold text-xl uppercase">Samrat Sneakers</p>
           <p class="text-sm text-gray-400">Магазин лучших кроссовок</p>
         </div>
       </div>
